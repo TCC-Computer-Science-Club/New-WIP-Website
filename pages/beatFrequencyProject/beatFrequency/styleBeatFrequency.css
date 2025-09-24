@@ -1,0 +1,45 @@
+/* CSS for Beat Frequency Project */
+body {
+    font-family: 'OpenDyslexic'; /* Ensure OpenDyslexic is loaded */
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #222;
+    margin: 0;
+    padding: 0;
+
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        "header header header"
+        "col1 col2 col3"
+        "footer footer footer";
+    gap: 10px;
+}
+
+.header {
+    grid-area: header;
+}
+
+.col1 {
+    grid-area: col1;
+}
+
+.col2 {
+    grid-area: col2;
+}
+
+.col3 {
+    grid-area: col3;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+.grid-item {
+    background-color: rgb(138, 136, 226);
+    padding: 20px;
+    text-align: center;
+}

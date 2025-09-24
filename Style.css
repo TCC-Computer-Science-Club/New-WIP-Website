@@ -1,0 +1,199 @@
+/* ✅ Font Setup */
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('fonts/OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ✅ Base Styles */
+body {
+  font-family: 'OpenDyslexic';
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ✅ Responsive Container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* ✅ Floating Header */
+header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Prevent content overlap with fixed header */
+main {
+  flex: 1;
+  padding-top: 80px; /* Adjust based on header height */
+}
+
+/* ✅ Layout Containers */
+header,
+main,
+footer {
+  width: 100%;
+  padding: 1rem;
+}
+
+/* ✅ Navigation Styles */
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  color: #0055aa;
+  transition: color 0.3s ease, outline 0.3s ease;
+}
+
+nav a:focus,
+nav a:hover {
+  outline: 2px solid #0055aa;
+}
+
+/* ✅ Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+input {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+/* ✅ Footer Styling */
+footer {
+  background-color: #333;
+  color: #f0f0f0;
+  border-top: 2px solid #555;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 0.9em;
+}
+
+/* ✅ Responsive Media */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ✅ Tablet Styles */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  body {
+    font-size: 15px;
+  }
+}
+
+/* ✅ Mobile Styles */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  header,
+  main,
+  footer {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* ✅ Unified Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-rows: 3fr 1fr 10fr 2fr;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-areas:
+    "header header header"
+    "nav nav nav"
+    "sidebar main rightbar"
+    "footer footer footer";
+  gap: 10px;
+  height: 100vh;
+}
+
+.header { grid-area: header; }
+.nav { grid-area: nav; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.rightbar { grid-area: rightbar; }
+.footer { grid-area: footer; }
+
+.grid-item {
+  background-color: rgb(79, 56, 101);
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+
+/* ✅ Grid Area Assignments */
+.header {
+  grid-area: header;
+}
+
+.nav {
+  grid-area: nav;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.main {
+  grid-area: main;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+/* ✅ Grid Item Styling */
+.grid-item {
+  background-color: rgb(53, 73, 255);
+  padding: 20px;
+  text-align: center;
+}
+
+/* ✅ Miscellaneous */
+#beat {
+  display: none;
+}
+
+ol {
+  font-size: 25px;
+  margin: 20px;
+  padding: 0;
+  text-align: left;
+}
+
+h1 {
+  font-size: 50px;
+}

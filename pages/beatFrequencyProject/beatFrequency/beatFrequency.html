@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--NEW STUFF
+    Beat Frequency Physics Simulation
+    Originally created for physics courses at Tacoma Community College
+    Author: David Anderson
+    Use and distribute freely
+-->
+    <script defer="" src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"> </script> <script defer src="https://cwpersonrennell.github.io/DesmosAddons/DesmosAddons.js"> </script> <script defer="defer"> document.addEventListener("DOMContentLoaded", () => {getCalculators();}); </script>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid Areas for Specific Rows</title>
+    <link rel="stylesheet" href="styleBeatFrequency.css" />
+    <!-- Linking CSS file -->
+  </head>
+  <body>
+    <div class="grid-container">
+      <div class="grid-item header"><h1>Beat Frequency Simulator</h1></div>
+      <div class="grid-item col1">
+        <input
+          type="image"
+          src="https://cdn-icons-png.freepik.com/512/860/860182.png"
+          class="speaker-image"
+          alt="Speaker icon @monkik https://www.freepik.com/author/monkik/icons"
+          onclick="playAudio()"
+        />
+        <div>
+          <label for="frequencyA"><h2>Frequency 1:</h2></label>
+          <select
+            name="Frequency A"
+            id="frequencyA"
+            onchange="chooseSrc()"
+          ></select>
+        </div>
+      </div>
+      <div class="grid-item col2">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Wave_frequency.gif" 
+     alt="PNG image of sine graphs showing different beat frequencies" 
+     width="600" height="500
+     alt="'Wave frequency' by User:Superborsuk is licensed under CC BY-SA 3.0."/>
+
+</div>
+
+      <div class="grid-item col3">
+        <input
+          type="image"
+          src="https://cdn-icons-png.freepik.com/512/860/860182.png"
+          class="speaker-image"
+          alt="Speaker icon @monkik https://www.freepik.com/author/monkik/icons"
+          style="transform: scaleX(-1);"
+          onclick="playAudio()"
+        />
+        <div>
+          <label for="frequencyB"><h2>Frequency 2:</h2></label>
+          <select
+            name="Frequency B"
+            id="frequencyB"
+            onchange="chooseSrc()"
+            class="frequency2-select"
+          ></select>
+        </div>
+      </div>
+      <div class="grid-item footer">
+        <h2>Instructions for running the simulation:</h2>
+        <ol>
+          <li>Select a first frequency from the Frequency 1 options list.</li>
+          <li>Select a second frequency from the Frequency 2 options list.</li>
+          <li>
+            Click either of the speaker icons to start audio playback.
+          </li>
+          <li>
+            A, B, C, and D represent unknown frequencies. Combine them with
+            other frequencies to find their values!
+          </li>
+        </ol>
+
+        
+
+          <div>
+            <audio controls controlsList="nodownload" id="beat">
+              <source id="beatFile" src="" />
+              Error: browser does not support audio
+            </audio>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="application/javascript">
+      let frequencyA = document.getElementById("frequencyA");
+      let frequencyB = document.getElementById("frequencyB");
+      let audio = document.getElementById("beat");
+      let source = document.getElementById("beatFile");
+
+      let frequencies = {
+        500: 500,
+        501: 501,
+        502: 502,
+        503: 503,
+        504: 504,
+        A: 499,
+        B: 501.5,
+        C: 506,
+        D: 509,
+      };
+
+      function loadFrequencies(select, skip = 0) {
+        for (let frequency in frequencies) {
+          if (frequencies[frequency] === skip) {
+            continue;
+          }
+          let option = document.createElement("option");
+          let optionText = frequency;
+          if (!isNaN(+frequency)) {
+            optionText = optionText + " hz";
+          }
+          option.textContent = optionText;
+          option.value = frequencies[frequency];
+          select.appendChild(option);
+        }
+      }
+
+      loadFrequencies(frequencyA);
+      loadFrequencies(frequencyB);
+      chooseSrc(); // initially load 500hz audio file
+
+      function chooseSrc() {
+        let hzA = parseFloat(frequencyA.value);
+        let hzB = parseFloat(frequencyB.value);
+
+        if (hzA > hzB) {
+          let temp = hzA;
+          hzA = hzB;
+          hzB = temp;
+        }
+
+        // remove decimal point from a floating point hz value to avoid illegal dot in filename
+        function removeDecimal(num) {
+          if (num % 1 !== 0) {
+            let decimal = num % 1;
+            return "" + Math.floor(num) + Math.floor(decimal * 10);
+          } else {
+            return "" + num;
+          }
+        }
+
+        source.src = "audio/" + removeDecimal(hzA) + "-" + removeDecimal(hzB) + ".mp3";
+
+        console.log(source.src);
+        audio.load();
+      }
+
+      function playAudio() {
+        if (audio.paused) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      }
+    </script>
+    <style>
+body {
+background-color: black;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+</style> 
+  </body>
+
+</html>

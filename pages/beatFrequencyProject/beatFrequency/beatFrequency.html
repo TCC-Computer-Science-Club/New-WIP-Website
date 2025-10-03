@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!--NEW STUFF
+<!--
     Beat Frequency Physics Simulation
     Originally created for physics courses at Tacoma Community College
     Author: David Anderson
     Use and distribute freely
 -->
-    <script defer="" src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"> </script> <script defer src="https://cwpersonrennell.github.io/DesmosAddons/DesmosAddons.js"> </script> <script defer="defer"> document.addEventListener("DOMContentLoaded", () => {getCalculators();}); </script>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -13,8 +12,16 @@
     <title>Grid Areas for Specific Rows</title>
     <link rel="stylesheet" href="styleBeatFrequency.css" />
     <!-- Linking CSS file -->
+    <script defer>
+      document.addEventListener("DOMContentLoaded", () => { getCalculators(); });
+    </script>
   </head>
   <body>
+    <!-- Link back to the TCC CS Club Website -->
+    <a href="../../../Index.html">
+      <img src="https://img.freepik.com/premium-psd/computer-isolated-transparent-background_191095-25426.jpg" width="150" height="150" alt="Some image that links back">
+      Back to TCC Computer Science Club Website
+    </a>
     <div class="grid-container">
       <div class="grid-item header"><h1>Beat Frequency Simulator</h1></div>
       <div class="grid-item col1">
@@ -35,13 +42,11 @@
         </div>
       </div>
       <div class="grid-item col2">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Wave_frequency.gif" 
-     alt="PNG image of sine graphs showing different beat frequencies" 
-     width="600" height="500
-     alt="'Wave frequency' by User:Superborsuk is licensed under CC BY-SA 3.0."/>
-
-</div>
-
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Wave_frequency.gif" 
+          alt="PNG image of sine graphs showing different beat frequencies" 
+          width="500" height="400"
+          alt="'Wave frequency' by User:Superborsuk is licensed under CC BY-SA 3.0."/>
+      </div>
       <div class="grid-item col3">
         <input
           type="image"
@@ -74,99 +79,79 @@
             other frequencies to find their values!
           </li>
         </ol>
-
-        
-
-          <div>
-            <audio controls controlsList="nodownload" id="beat">
-              <source id="beatFile" src="" />
-              Error: browser does not support audio
-            </audio>
-            <br />
-          </div>
+        <div>
+          <audio controls controlsList="nodownload" id="beat">
+            <source id="beatFile" src="" />
+            Error: browser does not support audio
+          </audio>
+          <br />
         </div>
       </div>
     </div>
     <script type="application/javascript">
-      let frequencyA = document.getElementById("frequencyA");
-      let frequencyB = document.getElementById("frequencyB");
-      let audio = document.getElementById("beat");
-      let source = document.getElementById("beatFile");
+            let frequencyA = document.getElementById("frequencyA");
+            let frequencyB = document.getElementById("frequencyB");
+            let audio = document.getElementById("beat");
+            let source = document.getElementById("beatFile");
 
-      let frequencies = {
-        500: 500,
-        501: 501,
-        502: 502,
-        503: 503,
-        504: 504,
-        A: 499,
-        B: 501.5,
-        C: 506,
-        D: 509,
-      };
+            let frequencies = {"500": 500, "501": 501, "502": 502, "503": 503, "504": 504,
+                "A": 499, "B": 501.5, "C": 506, "D": 509};
 
-      function loadFrequencies(select, skip = 0) {
-        for (let frequency in frequencies) {
-          if (frequencies[frequency] === skip) {
-            continue;
-          }
-          let option = document.createElement("option");
-          let optionText = frequency;
-          if (!isNaN(+frequency)) {
-            optionText = optionText + " hz";
-          }
-          option.textContent = optionText;
-          option.value = frequencies[frequency];
-          select.appendChild(option);
-        }
-      }
+            function loadFrequencies(select, skip = 0){
+                for(let frequency in frequencies){
+                    if(frequencies[frequency] === skip){
+                        continue;
+                    }
+                    let option = document.createElement("option");
+                    let optionText = frequency;
+                    if(!isNaN(+frequency)){
+                        optionText = optionText + " hz";
+                    }
+                    option.textContent = optionText;
+                    option.value = frequencies[frequency];
+                    select.appendChild(option);
+                }
+            }
 
-      loadFrequencies(frequencyA);
-      loadFrequencies(frequencyB);
-      chooseSrc(); // initially load 500hz audio file
+            loadFrequencies(frequencyA);
+            loadFrequencies(frequencyB);
+            chooseSrc(); // initially load 500hz audio file
 
-      function chooseSrc() {
-        let hzA = parseFloat(frequencyA.value);
-        let hzB = parseFloat(frequencyB.value);
+            function chooseSrc() {
+                let hzA = parseFloat(frequencyA.value);
+                let hzB = parseFloat(frequencyB.value);
 
-        if (hzA > hzB) {
-          let temp = hzA;
-          hzA = hzB;
-          hzB = temp;
-        }
+                if(hzA > hzB) {
+                    let temp = hzA;
+                    hzA = hzB;
+                    hzB = temp;
+                }
 
-        // remove decimal point from a floating point hz value to avoid illegal dot in filename
-        function removeDecimal(num) {
-          if (num % 1 !== 0) {
-            let decimal = num % 1;
-            return "" + Math.floor(num) + Math.floor(decimal * 10);
-          } else {
-            return "" + num;
-          }
-        }
+                // remove decimal point from a floating point hz value to avoid illegal dot in filename
+                function removeDecimal(num){
+                    if(num % 1 !== 0){
+                        let decimal = num % 1;
+                        return "" + Math.floor(num) + Math.floor(decimal * 10);
+                    }
+                    else{
+                        return "" + num;
+                    }
+                }
 
-        source.src = "audio/" + removeDecimal(hzA) + "-" + removeDecimal(hzB) + ".mp3";
+                source.src = "audio/" + removeDecimal(hzA) + "-" + removeDecimal(hzB) + ".mp3";
 
-        console.log(source.src);
-        audio.load();
-      }
+                console.log(source.src);
+                audio.load();
+            }
 
-      function playAudio() {
-        if (audio.paused) {
-          audio.play();
-        } else {
-          audio.pause();
-        }
-      }
-    </script>
-    <style>
-body {
-background-color: black;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-}
-</style> 
+            function playAudio(){
+                if(audio.paused){
+                    audio.play();
+                }
+                else{
+                    audio.pause();
+                }
+            }
+        </script>
   </body>
-
 </html>
